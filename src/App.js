@@ -8,6 +8,7 @@ import ProfileGamer from "./pages/Gamer/Profile/ProfileGamer";
 import { ProtectedRoute, RoleBasedRedirect } from "./protecteds/ProtectedRoute";
 import { AuthProvider } from "./contexts/Authen";
 import CongDongCAG from "./pages/Gamer/CongDongCAG/CongDongCAG";
+import CAGGuide from "./pages/Gamer/CAGGuide/CAGGuide";
 function App() {
   return (
     <AuthProvider>
@@ -18,7 +19,7 @@ function App() {
           <Route element={<MainLayout />}>
             {/* guest & gamer */}
             <Route path="/cong-dong-cag" element={<ProtectedRoute allowedRoles={['guest', 'gamer']}><CongDongCAG /></ProtectedRoute>} />
-            <Route path="/offices" element={<ProtectedRoute allowedRoles={['admin','guest', 'gamer']} />} />
+            <Route path="/offices" element={<ProtectedRoute allowedRoles={['admin','guest', 'gamer']} ><CAGGuide /></ProtectedRoute>} />
 
             {/* gamer */}
             <Route path="/pro-cloud-save" element={<ProtectedRoute allowedRoles={['gamer']}><ProCloudSave /></ProtectedRoute>} />

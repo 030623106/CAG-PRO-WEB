@@ -115,3 +115,22 @@ h1, h2, h3, h4, h5, h6 {
 .animate-badge-pulse {
   animation: badge-pulse 2s ease-in-out infinite;
 }
+
+/*Cagguide*/
+
+.clip-path-ribbon {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 70%, 50% 100%, 0% 70%);
+}
+
+.clip-path-hexagon {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+.glass-panel {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.text-shadow-sm {
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
