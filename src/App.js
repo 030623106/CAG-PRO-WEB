@@ -2,7 +2,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
-import UserTable from "./pages/UserTable";
 import ProCloudSave from "./pages/Gamer/ProCloudSave/ProCloudSave";
 import WelcomePage from "./pages/welcome/WelcomePage";
 import ProfileGamer from "./pages/Gamer/Profile/ProfileGamer";

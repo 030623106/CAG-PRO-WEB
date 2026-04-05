@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState([
+  const [messages] = useState([
     {
       id: 1,
       text: "Yo Khách Vãng Lai! 🎮\n\nCần tìm quán chiến *Wukong* hay fix lỗi game? Hỏi CAG AI ngay, data chuẩn 100%!",

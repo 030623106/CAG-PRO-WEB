@@ -124,11 +124,6 @@ export default function Register({
     setFormErrors((prev) => ({ ...prev, [name]: errors }));
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-    validateField(name, value);
-  };
   const handleSendOtp = () => {
     setShowOtpInput(true);
     setCountdown(60);
