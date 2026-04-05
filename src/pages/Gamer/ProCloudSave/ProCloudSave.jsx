@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import IdcGameLibrary, {
   ProCloudSaveBanner,
 } from "../../../components/Gamer/ProCloudSave/IdcGameLibrary";
@@ -17,6 +18,7 @@ import {
 import CloudSave from "../../../components/Gamer/ProCloudSave/CloudSave"; 
 
 export default function ProCloudSave() {
+  const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPassportOpen, setIsPassportOpen] = useState(false);
   

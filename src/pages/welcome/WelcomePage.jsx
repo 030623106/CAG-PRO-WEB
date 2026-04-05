@@ -9,7 +9,8 @@ export default function WelcomePage() {
   const [openLogin, setOpenLogin] = useState(false);
   const [openRegister, setOpenRegister] = useState(false);
   const [openForgot, setOpenForgot] = useState(false);
-  
+
+  const [lastLoginRole, setLastLoginRole] = useState("gamer");
   const [lastRegisterRole, setLastRegisterRole] = useState("gamer");
   const navigate = useNavigate();
   const { user } = useAuth();
