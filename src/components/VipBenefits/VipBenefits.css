@@ -1,0 +1,63 @@
+/* =========================================================
+   CSS CUSTOM DÙNG CHUNG CHO CẢ 4 ROLE (ADMIN, OWNER, GAMER, GUEST)
+   ========================================================= */
+
+/* 1. Hiệu ứng mờ dần và trượt lên cho Modal VIP (Rất quan trọng) */
+@keyframes fade-in {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 2. Ép kiểu Font chữ nếu bạn chưa cấu hình kịp trong tailwind.config.js */
+.font-rajdhani {
+  font-family: 'Rajdhani', sans-serif;
+  text-transform: uppercase !important;
+}
+
+/* 3. Hiệu ứng chữ Neon (Tech/Cyberpunk) */
+.text-neon-cyan {
+  color: #00F2EA;
+  text-shadow: 0 0 10px rgba(0, 242, 234, 0.5);
+}
+
+.text-neon-gold {
+  color: #FFD700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* 4. Tùy chỉnh thanh cuộn (Scrollbar) chuẩn phong cách Electric Cyan 
+   Áp dụng cho nội dung Popup nếu sau này bạn thêm nhiều chữ quá bị tràn
+*/
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #0B0E14; 
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1e293b; 
+  border-radius: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #00F2EA; 
+  box-shadow: 0 0 10px #00F2EA;
+}
+
+/* 5. Hỗ trợ cho các thiết bị di động (Tai thỏ iPhone) */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
