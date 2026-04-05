@@ -78,51 +78,7 @@ export default function Register({
   });
 
   //Validate realtime
-  const validateField = (name, value) => {
-    let errors = [];
 
-    switch (name) {
-      case "Username":
-        if (!value) errors.push("Tên tài khoản không được để trống");
-        else if (value.length < 3)
-          errors.push("Tên tài khoản phải ít nhất 3 ký tự");
-        break;
-      case "Email":
-        if (!value) errors.push("Email không được để trống");
-        else if (!/\S+@\S+\.\S+/.test(value)) errors.push("Email không hợp lệ");
-        break;
-      case "FullName":
-        if (!value) errors.push("Họ tên không được để trống");
-        break;
-      case "Password":
-        if (!value) errors.push("Mật khẩu không được để trống");
-        else if (value.length < 6 || value.length > 50)
-          errors.push("Mật khẩu phải có ít nhất 6 ký tự và không quá 50 ký tự");
-        break;
-      case "ConfirmPassword":
-        if (value !== form.password)
-          errors.push("Vui lòng xác nhận lại mật khẩu");
-        break;
-      case "PhoneNumber":
-        if (!value) errors.push("Số điện thoại là bắt buộc");
-        else if (!/^\d{9,11}$/.test(value))
-          errors.push("Số điện thoại không hợp lệ");
-        break;
-      case "Province":
-        if (!value) errors.push("Thành phố không được để trống");
-        break;
-      case "Commune":
-        if (!value) errors.push("Xã không được để trống");
-        break;
-      case "AddressDetail":
-        if (!value) errors.push("Địa chỉ chi tiết không được để trống");
-        break;
-      default:
-        break;
-    }
-
-    setFormErrors((prev) => ({ ...prev, [name]: errors }));
-  };
 
   const handleSendOtp = () => {
     setShowOtpInput(true);
