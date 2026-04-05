@@ -6,7 +6,7 @@ import OwnerSidebar from './OwnerSidebar';
 import GamerSidebar from './GamerSidebar';
 import ChatWidget from '../components/ChatWidget/ChatWidget';
 import OwnerChatWidget from '../components/ChatWidget/OwnerChatWidget';
-import SystemView from '../components/SystemView/SystemView'; 
+
 import './Sidebar.css';
 import MobileBottomNav from './MobileBottomNav';
 import './MobileBottomNav.css';
@@ -54,7 +54,6 @@ const MainLayout = () => {
         
         {/* Giữ nguyên z-[9999] như bản gốc HTML của bạn */}
         <div className="fixed bottom-[100px] left-2 md:bottom-4 md:left-4 z-[9999] font-mono flex gap-2 items-end">
-          <SystemView /> 
           <VipBenefits role={currentRole} />
         </div>
         
