@@ -6,7 +6,7 @@ const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
 
-  const [api] = useState("https://localhost:7014/api/");
+  const [api] = useState("https://apicagguide.icafevietnam.com:5100/api/");
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
