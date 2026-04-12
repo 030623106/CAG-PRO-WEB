@@ -9,7 +9,20 @@ import BookingModal from "../../../components/Gamer/CongDong/BookingModal";
 import CreateRoomModal from "../../../components/Gamer/CongDong/CreateRoomModal";
 import JoinRoomSuccessModal from "../../../components/Gamer/CongDong/JoinRoomSuccessModal";
 import CreateDiscussionModal from "../../../components/Gamer/CongDong/CreateDiscussionModal";
+import { useOutletContext } from 'react-router-dom'; 
+import { useAuth } from '../../../contexts/Authen';
+import { Link } from "react-router-dom";
 const CommunityFeed = () => {
+  const { user } = useAuth();
+  const { triggerAuth } = useOutletContext();
+
+  const checkAuth = (message) => {
+      if (!user || user.role === 'guest') { // Đổi lại thành logic check guest của bạn
+          triggerAuth(message);
+          return false;
+      }
+      return true;
+  };
   const [activeTab, setActiveTab] = useState("news");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isHallOfFameOpen, setIsHallOfFameOpen] = useState(false);
@@ -42,7 +55,12 @@ const CommunityFeed = () => {
               <div className="flex gap-3 flex-wrap">
                 <button
                   className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold px-6 py-2.5 rounded-lg shadow-lg flex items-center gap-2 transform hover:scale-105 transition-all"
-                  onClick={() => setIsModalOpen(true)}
+                  onClick={() =>{
+                     if (checkAuth("Đăng nhập để Review.")) {
+                    setIsModalOpen(true)
+                  }
+                  }}
+                 
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -60,37 +78,41 @@ const CommunityFeed = () => {
                   </svg>
                   Viết Review Ngay
                 </button>
-                <ReviewModal
-                  isOpen={isModalOpen}
-                  onClose={() => setIsModalOpen(false)}
-                />
-                <a
-                  href="#/profile"
+                
+                <Link
+                  to="/wallet"
+                  onClick={(e) => {
+                    if (!checkAuth("Đăng nhập xem ví.")) {
+                      e.preventDefault(); 
+                    }
+                  }}
                   className="bg-slate-800/80 hover:bg-slate-800 text-white font-bold px-6 py-2.5 rounded-lg border border-slate-600"
                 >
                   Ví Của Tôi
-                </a>
+                </Link>
               </div>
             </div>
 
-            <div className="bg-slate-950/50 p-4 rounded-xl border border-white/10 backdrop-blur-sm min-w-[240px] transform hover:scale-105 transition-transform cursor-pointer">
-              <p className="text-xs text-slate-400 uppercase font-bold mb-1">
-                Thu nhập tháng này
-              </p>
-              <p className="text-3xl font-mono text-green-400 font-bold mb-2">
-                0 ₫
-              </p>
-              <div className="flex gap-2 text-[10px] text-slate-300">
-                <span className="bg-green-500/20 px-2 py-0.5 rounded text-green-400 font-bold">
-                  Rút tiền ngay
-                </span>
+           {user && (user.role === 'gamer' || user.userType === 4) && (
+              <div className="bg-slate-950/50 p-4 rounded-xl border border-white/10 backdrop-blur-sm min-w-[240px] transform hover:scale-105 transition-transform cursor-pointer">
+                <p className="text-xs text-slate-400 uppercase font-bold mb-1">
+                  Thu nhập tháng này
+                </p>
+                <p className="text-3xl font-mono text-green-400 font-bold mb-2">
+                  0 ₫
+                </p>
+                <div className="flex gap-2 text-[10px] text-slate-300">
+                  <span className="bg-green-500/20 px-2 py-0.5 rounded text-green-400 font-bold">
+                    Rút tiền ngay
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-slate-700 sticky top-0 z-50 bg-slate-950/95 backdrop-blur pt-2 overflow-x-auto scrollbar-hide">
+        <div className="flex border-b border-slate-700 sticky top-0 bg-slate-950/95 backdrop-blur z-20 pt-2 overflow-x-auto scrollbar-hide">
           <button
             onClick={() => setActiveTab("news")}
             className={`pb-4 px-6 text-sm font-bold border-b-2 transition-colors flex items-center gap-2 whitespace-nowrap ${
@@ -99,15 +121,7 @@ const CommunityFeed = () => {
                 : "border-transparent text-slate-400 hover:text-white"
             }`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M4 11a9 9 0 0 1 9 9"></path>
               <path d="M4 4a16 16 0 0 1 16 16"></path>
               <circle cx="5" cy="19" r="1"></circle>
@@ -116,22 +130,19 @@ const CommunityFeed = () => {
           </button>
 
           <button
-            onClick={() => setActiveTab("following")}
+            onClick={() => {
+              // ĐÂY LÀ CHỖ GỌI HÀM checkAuth ĐỂ CHẶN GUEST
+              if (checkAuth("Đăng nhập để xem danh sách theo dõi.")) {
+                setActiveTab("following");
+              }
+            }}
             className={`pb-4 px-6 text-sm font-bold border-b-2 transition-colors flex items-center gap-2 whitespace-nowrap ${
               activeTab === "following"
                 ? "border-green-500 text-green-400"
                 : "border-transparent text-slate-400 hover:text-white"
             }`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
@@ -139,44 +150,32 @@ const CommunityFeed = () => {
           </button>
 
           <button
-            onClick={() => setActiveTab("roundtable")}
+            onClick={() => {
+                setActiveTab("roundtable");
+            }}
             className={`pb-4 px-6 text-sm font-bold border-b-2 transition-colors flex items-center gap-2 whitespace-nowrap ${
               activeTab === "roundtable"
                 ? "border-cyan-400 text-cyan-400"
                 : "border-transparent text-slate-400 hover:text-white"
             }`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
             </svg>
             HỘI BÀN TRÒN
           </button>
 
           <button
-            onClick={() => setActiveTab("findteammate")}
+            onClick={() => {
+                setActiveTab("findteammate");
+            }}
             className={`pb-4 px-6 text-sm font-bold border-b-2 transition-colors flex items-center gap-2 whitespace-nowrap ${
               activeTab === "findteammate"
                 ? "border-green-500 text-green-400"
                 : "border-transparent text-slate-400 hover:text-white"
             }`}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
               <circle cx="9" cy="7" r="4"></circle>
               <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
@@ -192,15 +191,18 @@ const CommunityFeed = () => {
             <FollowingFeed onOpenBookingModal={setBookingData} />
           )}
           {activeTab === "news" && (
-            <NewsFeed onOpenBookingModal={setBookingData} openReview={setIsModalOpen} />
+            <NewsFeed checkAuth={checkAuth} onOpenBookingModal={setBookingData} openReview={setIsModalOpen} />
           )}
           {activeTab === "roundtable" && (
             <RoundTableFeed
+            checkAuth={checkAuth}
               onOpenDiscussion={() => setIsCreateDiscussionOpen(true)}
             />
           )}
           {activeTab === "findteammate" && (
             <FindTeammateFeed
+            checkAuth={checkAuth}
+
               onOpenCreateModal={() => setIsCreateRoomOpen(true)}
               onJoinRoom={setRoomToJoin}
             />
@@ -359,6 +361,10 @@ const CommunityFeed = () => {
           </div>
         </div>
       </div>
+      <ReviewModal
+                  isOpen={isModalOpen}
+                  onClose={() => setIsModalOpen(false)}
+                />
       <HallOfFameModal
         isOpen={isHallOfFameOpen}
         onClose={() => setIsHallOfFameOpen(false)}
@@ -378,7 +384,7 @@ const CommunityFeed = () => {
         onClose={() => setRoomToJoin(null)}
         onConfirm={() => {
           if (roomToJoin?.onConfirm) roomToJoin.onConfirm();
-          setRoomToJoin(null); // Đóng modal
+          setRoomToJoin(null);
         }}
       />
       <CreateDiscussionModal

@@ -1,7 +1,6 @@
+import  { useState } from "react";
 
-import React, { useState } from 'react';
-
-const FindTeammateFeed = ({ onOpenCreateModal, onJoinRoom }) => {
+const FindTeammateFeed = ({ onOpenCreateModal, onJoinRoom,checkAuth }) => {
   const [players, setPlayers] = useState({
     room1: 3, 
     room2: 1  
@@ -11,6 +10,7 @@ const FindTeammateFeed = ({ onOpenCreateModal, onJoinRoom }) => {
   const isRoom2Full = players.room2 >= 5;
 
   const handleJoinClick = (roomId, hostName) => {
+    if (!checkAuth("Đăng nhập để tham gia Squad.")) return;
     if (onJoinRoom) {
       onJoinRoom({
         hostName: hostName,
@@ -26,7 +26,6 @@ const FindTeammateFeed = ({ onOpenCreateModal, onJoinRoom }) => {
 
   return (
     <div className="space-y-4">
-      {/* BANNER TẠO PHÒNG */}
       <div className="bg-gradient-to-r from-green-900 to-emerald-900 p-1 rounded-xl shadow-lg border border-green-700/50">
         <div className="bg-slate-900/50 backdrop-blur-sm rounded-lg p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
@@ -47,9 +46,7 @@ const FindTeammateFeed = ({ onOpenCreateModal, onJoinRoom }) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         
-        {/* ========================================== */}
-        {/* PHÒNG 1: TUẤN ĐẠT */}
-        {/* ========================================== */}
+
         <div className="relative bg-slate-800 rounded-xl border border-slate-700 overflow-hidden group hover:border-green-500/50 transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.15)]">
           <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-black/40 to-transparent z-0"></div>
           <div className="absolute top-0 right-0 px-3 py-1 text-[10px] font-black uppercase text-white rounded-bl-xl z-10 bg-yellow-600">CS:GO 2</div>
@@ -90,7 +87,6 @@ const FindTeammateFeed = ({ onOpenCreateModal, onJoinRoom }) => {
                 </div>
               </div>
               
-              {/* ÁP DỤNG CLASS MÀU XÁM KHI FULL CỦA BẠN VÀO ĐÂY */}
               <button 
                 onClick={() => handleJoinClick('room1', 'Tuấn Đạt')}
                 disabled={isRoom1Full}
@@ -106,9 +102,7 @@ const FindTeammateFeed = ({ onOpenCreateModal, onJoinRoom }) => {
           </div>
         </div>
 
-        {/* ========================================== */}
-        {/* PHÒNG 2: LAN ANH */}
-        {/* ========================================== */}
+        
         <div className="relative bg-slate-800 rounded-xl border border-slate-700 overflow-hidden group hover:border-green-500/50 transition-all hover:shadow-[0_0_20px_rgba(34,197,94,0.15)]">
           <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-black/40 to-transparent z-0"></div>
           <div className="absolute top-0 right-0 px-3 py-1 text-[10px] font-black uppercase text-white rounded-bl-xl z-10 bg-red-500">Valorant</div>
@@ -149,7 +143,6 @@ const FindTeammateFeed = ({ onOpenCreateModal, onJoinRoom }) => {
                 </div>
               </div>
               
-              {/* ÁP DỤNG CLASS MÀU XÁM KHI FULL CỦA BẠN VÀO ĐÂY */}
               <button 
                 onClick={() => handleJoinClick('room2', 'Lan Anh')}
                 disabled={isRoom2Full}

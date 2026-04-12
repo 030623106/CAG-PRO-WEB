@@ -1,7 +1,7 @@
+import  { useState } from "react";
 
-import React, { useState } from 'react';
 import PostCommentSection from './PostCommentSection';
-const NewsFeed = ({ onOpenBookingModal,openReview }) => {
+const NewsFeed = ({checkAuth, onOpenBookingModal,openReview }) => {
   const [openComments, setOpenComments] = useState({});
   const toggleComment = (postId) => {
     setOpenComments((prev) => ({
@@ -71,7 +71,14 @@ const NewsFeed = ({ onOpenBookingModal,openReview }) => {
       <div className="bg-slate-800 p-4 rounded-xl border border-slate-700 flex gap-4">
         <img className="w-10 h-10 rounded-full border border-slate-600" src="https://i.pravatar.cc/300?img=11" alt="User avatar" />
         <div className="flex-1">
-          <div onClick={() => openReview(true)} className="bg-slate-900 rounded-full px-4 py-2 mb-2 flex justify-between items-center cursor-pointer hover:bg-slate-700 transition-colors group">
+          <div 
+            onClick={() => {
+              if (checkAuth("Đăng nhập để Review.")) {
+                openReview(true);
+              }
+            }} 
+            className="bg-slate-900 rounded-full px-4 py-2 mb-2 flex justify-between items-center cursor-pointer hover:bg-slate-700 transition-colors group"
+          >
             <span className="text-sm text-slate-400 group-hover:text-white transition-colors">
               Bạn vừa chơi ở đâu? Review ngay kiếm tiền...
             </span>
@@ -87,74 +94,56 @@ const NewsFeed = ({ onOpenBookingModal,openReview }) => {
       <div className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden relative group transition-all">
         <div className="p-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <a href="#/profile" className="relative cursor-pointer">
-              <div className="relative overflow-hidden w-10 h-10 rounded-full border-2 border-slate-600 hover:border-cyan-500 transition-colors">
-                <img
-                  alt="CAG Guide"
-                  loading="lazy"
-                  decoding="async"
-                  className="transition-opacity duration-500 ease-in-out opacity-100 w-full h-full object-cover"
-                  src="https://picsum.photos/50/50?random=999"
-                />
-              </div>
-              <div className="absolute -bottom-1 -right-1 bg-cyan-500 text-black p-0.5 rounded-full border border-slate-900" title="Thổ Địa Quán Net">
-                <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              </div>
-            </a>
+             {/* ... */}
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-bold text-white text-sm">CAG Guide</span>
                 <span className="text-[10px] bg-slate-700 text-slate-300 px-1 rounded">CAG Creator</span>
                 <span className="text-[10px] bg-yellow-500/20 text-yellow-400 px-1 rounded border border-yellow-500/30" title="Đại Gia Giờ Chơi">VIP</span>
-                <button className="ml-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full transition-all bg-cyan-900/30 text-cyan-400 border border-cyan-700/50 hover:bg-cyan-500 hover:text-black">
+                
+                {/* 1. NÚT THEO DÕI */}
+                <button 
+                  onClick={() => checkAuth("Đăng nhập để theo dõi.")}
+                  className="ml-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full transition-all bg-cyan-900/30 text-cyan-400 border border-cyan-700/50 hover:bg-cyan-500 hover:text-black"
+                >
                   + Theo dõi
                 </button>
+
               </div>
               <p className="text-xs text-slate-400">Ghim</p>
             </div>
           </div>
-          <div className="relative">
-            <button className="text-slate-500 hover:text-white p-1 rounded-full hover:bg-slate-700 transition-colors">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="1" />
-                <circle cx="12" cy="5" r="1" />
-                <circle cx="12" cy="19" r="1" />
-              </svg>
-            </button>
-          </div>
         </div>
 
-        <div className="px-4 pb-2 text-sm text-slate-200 leading-relaxed">
-          CAG Guide - Pro Gaming Ecosystem: Nền tảng kết nối Gamer và Cyber Game hàng đầu Việt Nam. Tìm quán ngon, đặt máy xịn, nhận quà khủng!
-          <div className="flex flex-wrap gap-2 mt-3">
-            <span className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-2 py-0.5 rounded text-[10px] font-bold flex items-center gap-1 shadow-lg shadow-pink-500/20 animate-pulse">
-              <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
-              </svg>
-              FEATURED
-            </span>
-            <span className="text-cyan-400 text-xs cursor-pointer hover:underline">#CAGGuide</span>
-            <span className="text-cyan-400 text-xs cursor-pointer hover:underline">#ProGaming</span>
-            <span className="text-cyan-400 text-xs cursor-pointer hover:underline">#Ecosystem</span>
-          </div>
-        </div>
 
         <div className="p-3 border-t border-slate-700 flex justify-between text-slate-400 bg-slate-800/80">
-          <button className="flex items-center gap-2 text-xs font-bold hover:text-pink-500 transition-colors">
+          
+          <button 
+            onClick={() => checkAuth("Đăng nhập để thả tim.")}
+            className="flex items-center gap-2 text-xs font-bold hover:text-pink-500 transition-colors"
+          >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-pink-500">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
             </svg>
             999 Yêu thích
           </button>
-          <button onClick={() => toggleComment('post_1')} className="flex items-center gap-2 text-xs font-bold hover:text-white transition-colors">
+
+          <button 
+            onClick={() => {
+                   toggleComment('post_1');
+            }} 
+            className="flex items-center gap-2 text-xs font-bold hover:text-white transition-colors"
+          >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
             </svg>
             0 Bình luận
           </button>
-          <button className="flex items-center gap-2 text-xs font-bold hover:text-green-500 transition-colors">
+
+          <button 
+            onClick={() => checkAuth("Đăng nhập để chia sẻ.")}
+            className="flex items-center gap-2 text-xs font-bold hover:text-green-500 transition-colors"
+          >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="18" cy="5" r="3" />
               <circle cx="6" cy="12" r="3" />
@@ -165,7 +154,8 @@ const NewsFeed = ({ onOpenBookingModal,openReview }) => {
             Chia sẻ
           </button>
         </div>
-        <PostCommentSection isOpen={openComments['post_1']} />
+
+        <PostCommentSection isOpen={openComments['post_1']} checkAuth={checkAuth} />
       </div>
 
       {/* Bài post Flash Gaming Center */}

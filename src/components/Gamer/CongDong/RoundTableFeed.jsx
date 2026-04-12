@@ -1,11 +1,13 @@
-import React from 'react';
 
-const RoundTableFeed = ({ onOpenDiscussion }) => {
+const RoundTableFeed = ({ onOpenDiscussion,checkAuth}) => {
   return (
     <div className="space-y-4">
-      {/* Input bắt đầu thảo luận */}
       <div
-      onClick={onOpenDiscussion}
+     onClick={() => {
+            if (checkAuth("Đăng nhập để thảo luận.")) {
+                onOpenDiscussion();
+            }
+        }}
        className="bg-slate-900 border border-cyan-900/50 p-4 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-slate-800 transition-colors">
         <div className="w-10 h-10 rounded-full bg-cyan-900/30 flex items-center justify-center text-cyan-400">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -15,7 +17,6 @@ const RoundTableFeed = ({ onOpenDiscussion }) => {
         <span className="text-slate-400 text-sm font-medium">Bắt đầu thảo luận, hỏi đáp hoặc chia sẻ mẹo...</span>
       </div>
 
-      {/* Các tag filter (Hot Topic, Phần Cứng, Wukong,...) */}
       <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
         <button className="bg-cyan-600 text-white px-3 py-1 rounded-full text-xs font-bold whitespace-nowrap shadow-lg shadow-cyan-600/20">
           Tất cả
@@ -34,10 +35,8 @@ const RoundTableFeed = ({ onOpenDiscussion }) => {
         </button>
       </div>
 
-      {/* Bài thảo luận mẫu */}
       <div className="bg-slate-800 rounded-xl border border-slate-700 overflow-hidden hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.1)] transition-all group">
         <div className="flex">
-          {/* Vote up/down sidebar */}
           <div className="w-10 bg-slate-900/50 flex flex-col items-center pt-3 border-r border-slate-700/50 gap-1">
             <button className="text-slate-500 hover:text-orange-500 transition-colors">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
@@ -104,7 +103,6 @@ const RoundTableFeed = ({ onOpenDiscussion }) => {
         </div>
       </div>
 
-      {/* Bạn có thể thêm nhiều bài thảo luận khác ở đây, copy khối trên và chỉnh sửa nội dung */}
     </div>
   );
 };
